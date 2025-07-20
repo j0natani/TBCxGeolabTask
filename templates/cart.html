@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Your Cart
+{% endblock %}
+
+{% block container %}
+<div class="container my-5">
+    <h1 class="mb-4">Shopping Cart</h1>
+
+    {% if cart and cart|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set grand_total = 0 %}
+                    {% for item in cart %}
+                        {% set total = item['price'] * item['quantity'] %}
+                        {% set grand_total = grand_total + total %}
+                        <tr>
+                            <td>{{ item['name'] }}</td>
+                            <td><img src="{{ item['image'] }}" class="img-thumbnail" style="max-width: 80px;"></td>
+                            <td>${{ item['price'] }}</td>
+                            <td>{{ item['quantity'] }}</td>
+                            <td>${{ total }}</td>
+                            <td>
+                                <a href="/remove/{{ item['id'] }}" class="btn btn-sm btn-danger">Remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-4">
+            <h4>Grand Total: ${{ grand_total }}</h4>
+            <a href="/checkout" class="btn btn-success mt-2">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

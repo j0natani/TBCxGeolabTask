@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <p>Name: {{ user["username"] }}</p>
+      </div>
+      <div class="row">
+        <p>Pass: {{ user["password"] }}</p>
+      </div>
+      <div class="row">
+        <img src="/static/images/{{ user['img']}}">
+      </div>
+    </div>
+    </div>
+
+
+{% endblock %}
